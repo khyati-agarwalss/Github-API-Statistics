@@ -9,7 +9,7 @@ run, url = argv
 
 def extract_data_to_csv(url):
 	data = requests.get(url).json()
-	file_writer = open('commit_activity.csv', 'w')
+	file_writer = open('commit_activity.csv', 'w', newline='')
 	csv_writer = csv.writer(file_writer)
 	count = 0
 	for elem in data:
