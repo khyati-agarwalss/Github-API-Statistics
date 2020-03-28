@@ -4,6 +4,7 @@
 import csv
 import requests
 from sys import argv
+import time
 
 run, url = argv
 
@@ -17,7 +18,7 @@ def extract_data_to_csv(url):
 	        header = ['week', 'total', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 	        csv_writer.writerow(header)
 	        count += 1
-	    values = [elem['week'], elem['total']]
+	    values = [time.strftime("%Y-%m-%d", time.localtime(int(elem['week']))), elem['total']]
 	    for i in range(7):
 	    	values.append(elem['days'][i])
 	    csv_writer.writerow(values)
