@@ -14,10 +14,13 @@ def extract_data_to_csv(url):
 	count = 0
 	for elem in data:
 	    if count == 0:
-	        header = elem.keys()
+	        header = ['week', 'total', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 	        csv_writer.writerow(header)
 	        count += 1
-	    csv_writer.writerow(elem.values())  
+	    values = [elem['week'], elem['total']]
+	    for i in range(7):
+	    	values.append(elem['days'][i])
+	    csv_writer.writerow(values)
 	file_writer.close()
 
 extract_data_to_csv(url)
