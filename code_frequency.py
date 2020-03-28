@@ -5,6 +5,7 @@ import csv
 import numpy as np
 import requests
 from sys import argv
+import time
 
 run, url = argv
 
@@ -12,9 +13,11 @@ def extract_data_to_csv(url):
 	data = requests.get(url).json()
 	file_writer = open('code_frequency.csv', 'w', newline='')
 	csv_writer = csv.writer(file_writer)
-	csv_writer.writerow(['week', 'additions', 'deletions'])
+	header = ['week', 'additions', 'deletions']
+	csv_writer.writerow(header)
 	for elem in data:
-	    csv_writer.writerow(np.absolute(elem))
+		values = [time.strftime("%Y-%m-%d", time.localtime(int(elem[0]))), elem[1], np.absolute(elem[2])]
+		csv_writer.writerow(values)
 	file_writer.close()
 
 extract_data_to_csv(url)
